@@ -15,6 +15,7 @@ spec:
       containers:
       - name: smb
         image: ghcr.io/magicalfruit/maintenance-pod:main
+        imagePullPolicy: Always
         volumeMounts:
         - name: sharedpvc
           mountPath: /mnt/pvc
