@@ -5,4 +5,4 @@ RUN apt install samba -y
 
 EXPOSE 139/tcp 445/tcp
 
-CMD ["smbd", "--foreground"]
+CMD ["smbd", "--foreground", "--log-stdout"]
