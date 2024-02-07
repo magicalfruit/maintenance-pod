@@ -21,6 +21,7 @@ spec:
           mountPath: /mnt/pvc
         ports:
         - containerPort: 445
+        - containerPort: 139
       volumes:
       - name: sharedpvc
         persistentVolumeClaim:
