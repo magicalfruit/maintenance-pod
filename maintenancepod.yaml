@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maintenance-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: maintenance-pod
+  template:
+    metadata:
+      labels:
+        app: maintenance-pod
+    spec:
+      containers:
+      - name: smb
+        image: ghcr.io/natebluehooves/maintenance-pod
+        volumeMounts:
+        - name: sharedpvc
+          mountPath: /mnt/pvc
+        ports:
+        - containerPort: 445 # Standard SMB port
+      volumes:
+      - name: sharedpvc
+        persistentVolumeClaim:
+          claimName: maintenance-pv-claim
