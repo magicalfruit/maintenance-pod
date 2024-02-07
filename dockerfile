@@ -5,4 +5,4 @@ RUN apt install samba -y
 
 EXPOSE 139/tcp 445/tcp
 
-CMD ["smbd", "--foreground", "--debug-stdout"]
+CMD ["smbd", "--foreground", "--debug-stdout", "--no-process-group"]
