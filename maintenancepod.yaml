@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: maintenance-pod
+  namespace: gameservers
 spec:
   replicas: 1
   selector:
@@ -18,11 +19,11 @@ spec:
         imagePullPolicy: Always
         volumeMounts:
         - name: sharedpvc
-          mountPath: /mnt/pvc
+          mountPath: /mnt/palworld
         ports:
         - containerPort: 445
         - containerPort: 139
       volumes:
       - name: sharedpvc
         persistentVolumeClaim:
-          claimName: maintenance-pv-claim
+          claimName: palworld-pv-claim
