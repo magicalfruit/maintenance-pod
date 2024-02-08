@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: maintenance-pod
+  namespace: pawbsocial
 spec:
   replicas: 1
   selector:
@@ -17,12 +18,22 @@ spec:
         image: ghcr.io/magicalfruit/maintenance-pod:main
         imagePullPolicy: Always
         volumeMounts:
-        - name: sharedpvc
-          mountPath: /mnt/maintenance
+        - name: furryengineer
+          mountPath: /mnt/furry-engineer
+        - name: pawbfun
+          mountPath: /mnt/pawb-fun
+        - name: pawbsocial
+          mountPath: /mnt/pawb-social
         ports:
         - containerPort: 445
         - containerPort: 139
       volumes:
-      - name: sharedpvc
+      - name: furryengineer
         persistentVolumeClaim:
-          claimName: maintenance-pv-claim
+          claimName: furryengineer-pv-claim
+      - name: pawbfun
+        persistentVolumeClaim:
+          claimName: pawbfun-pv-claim
+      - name: pawbsocial
+        persistentVolumeClaim:
+          claimName: pawbsocial-pv-claim

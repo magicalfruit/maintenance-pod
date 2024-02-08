@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: maintenance-pod-service
+  namespace: gameservers
+spec:
+  type: NodePort # Use NodePort or LoadBalancer for external access
+  ports:
+  - name: smb
+    port: 445
+    targetPort: 445
+    nodePort: 445
+  - name: netbios
+    port: 139
+    targetPort: 139
+    nodePort: 139
+  selector:
+    app: maintenance-pod
