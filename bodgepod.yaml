@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bodge-pod
+  namespace: pawbsocial
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bodge-pod
+  template:
+    metadata:
+      labels:
+        app: bodge-pod
+    spec:
+      containers:
+      - name: smb
+        image: ghcr.io/magicalfruit/maintenance-pod:main
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: bodge2
+          mountPath: /mnt/longhorn/lemmy
+        - name: bodge
+          mountPath: /mnt/longhorn/blfc
+        - name: nfs
+          mountPath: /mnt/nfs/blfc
+        - name: nfs2
+          mountPath: /mnt/nfs/lemmy
+        ports:
+        - containerPort: 445
+        - containerPort: 139
+      volumes:
+#      - name: sonarr
+#        nfs:
+#          server: sonarr-pv-claim.longhorn-system.svc.cluster.local
+#          path: /export/sonarr-pv-claim
+      - name: nfs
+        nfs:
+          server: 10.10.100.100
+          path: /mnt/user/Svalbard/[K8S]/[MEDIA]
+      - name: nfs2
+        nfs:
+          server: 10.10.100.100
+          path: /mnt/user/Svalbard/[K8S]/PawbSocial/Lemmy
+      - name: bodge2
+        persistentVolumeClaim:
+          claimName: pawbsocial-pv-claim
+      - name: bodge
+        persistentVolumeClaim:
+          claimName: blfc-pv-claim

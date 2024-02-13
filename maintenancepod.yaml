@@ -17,12 +17,16 @@ spec:
         image: ghcr.io/magicalfruit/maintenance-pod:main
         imagePullPolicy: Always
         volumeMounts:
-        - name: sharedpvc
-          mountPath: /mnt/maintenance
+        - name: sonarr
+          mountPath: /mnt/longhorn/sonarr
         ports:
         - containerPort: 445
         - containerPort: 139
       volumes:
-      - name: sharedpvc
+#      - name: sonarr
+#        nfs:
+#          server: sonarr-pv-claim.longhorn-system.svc.cluster.local
+#          path: /export/sonarr-pv-claim
+      - name: sonarr
         persistentVolumeClaim:
-          claimName: maintenance-pv-claim
+          claimName: sonarr-pv-claim
